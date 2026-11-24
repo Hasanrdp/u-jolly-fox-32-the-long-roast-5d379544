@@ -43,6 +43,10 @@ def write_entry(text):
     return path
 
 
+# The gate checks sha256 AND character count separately on purpose:
+# a sha256 match alone would pass even if the bytes decoded to a
+# different character count under another encoding, so both checks
+# together pin the exact graded line — bytes and characters.
 def read_back(path):
     """Read the file back and prove it holds exactly the intended bytes."""
     with open(path, "rb") as handle:
